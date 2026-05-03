@@ -1,7 +1,6 @@
 package com.tricentis.demowebshop.tests;
 
 import com.tricentis.demowebshop.pages.HomePage;
-import com.tricentis.demowebshop.pages.RegisterPage;
 import com.tricentis.demowebshop.pages.RegisterResultPage;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
