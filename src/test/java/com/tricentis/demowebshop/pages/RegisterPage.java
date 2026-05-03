@@ -3,6 +3,7 @@ package com.tricentis.demowebshop.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegisterPage extends BasePage{
 
@@ -26,6 +27,8 @@ public class RegisterPage extends BasePage{
     private WebElement confirmPasswordInput;
     @FindBy(id = "register-button")
     private WebElement registerButton;
+    @FindBy(className = "validation-summary-errors")
+    private WebElement emailExistsErrorMessage;
 
     public RegisterResultPage registerNewUser(String firstName, String lastName, String email, String password) {
         genderMaleRadioButton.click();
@@ -36,6 +39,22 @@ public class RegisterPage extends BasePage{
         confirmPasswordInput.sendKeys(password);
         registerButton.click();
         return new RegisterResultPage(driver);
+    }
+
+    public RegisterPage registerNewUserWithInvalidData(String firstName, String lastName, String email, String password) {
+        genderMaleRadioButton.click();
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(lastName);
+        emailInput.sendKeys(email);
+        passwordInput.sendKeys(password);
+        confirmPasswordInput.sendKeys(password);
+        registerButton.click();
+        return this;
+    }
+
+    public String getEmailExistsErrorMessageText() {
+        wait.until(ExpectedConditions.visibilityOf(emailExistsErrorMessage));
+        return emailExistsErrorMessage.getText();
     }
 
     public void clickRegisterButton() {
