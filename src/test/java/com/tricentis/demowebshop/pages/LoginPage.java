@@ -4,11 +4,7 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 @Getter
 public class LoginPage extends BasePage {
 
@@ -24,6 +20,13 @@ public class LoginPage extends BasePage {
     private WebElement rememberMeCheckbox;
     @FindBy(className = "login-button")
     private WebElement loginButton;
+    @FindBy(css = ".validation-summary-errors > span")
+    private WebElement errorMessage;
+    @FindBy(css = ".validation-summary-errors > ul > li")
+    private WebElement secondErrorMessage;
+    @FindBy(css = "span[for='Email']")
+    private WebElement emailErrorMessage;
+
 
     public LoginPage enterEmail(String email) {
         emailInput.sendKeys(email);
@@ -42,7 +45,11 @@ public class LoginPage extends BasePage {
 
     public HomePage clickLoginButton() {
         loginButton.click();
-        //wait.until(ExpectedConditions.visibilityOf())
         return new HomePage(driver);
+    }
+
+    public LoginPage clickLoginButtonWithInvalidCredentials() {
+        loginButton.click();
+        return this;
     }
 }

@@ -20,7 +20,7 @@ public class HomePage extends BasePage {
     private WebElement logOutLink;
     @Getter
     @FindBy(className = "ico-login")
-    private WebElement loginLink;
+    private WebElement logInLink;
 
     public RegisterPage openRegisterPage() {
         registerLink.click();
@@ -28,7 +28,7 @@ public class HomePage extends BasePage {
     }
 
     public LoginPage openLoginPage() {
-        loginLink.click();
+        logInLink.click();
         return new LoginPage(driver);
     }
 
