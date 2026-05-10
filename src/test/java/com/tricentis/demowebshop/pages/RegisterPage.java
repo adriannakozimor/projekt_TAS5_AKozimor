@@ -1,11 +1,14 @@
 package com.tricentis.demowebshop.pages;
 
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class RegisterPage extends BasePage{
+import java.util.List;
+
+public class RegisterPage extends BasePage {
 
     public RegisterPage(WebDriver driver) {
         super(driver);
@@ -27,11 +30,14 @@ public class RegisterPage extends BasePage{
     private WebElement confirmPasswordInput;
     @FindBy(id = "register-button")
     private WebElement registerButton;
+    @Getter
     @FindBy(className = "validation-summary-errors")
     private WebElement emailExistsErrorMessage;
+    @FindBy(className = "field-validation-error")
+    private List<WebElement> validationErrorMessages;
 
-    public RegisterResultPage registerNewUser(String firstName, String lastName, String email, String password) {
-        genderMaleRadioButton.click();
+    public RegisterResultPage registerNewUser(String gender, String firstName, String lastName, String email, String password) {
+        selectGender(gender);
         firstNameInput.sendKeys(firstName);
         lastNameInput.sendKeys(lastName);
         emailInput.sendKeys(email);
@@ -41,8 +47,8 @@ public class RegisterPage extends BasePage{
         return new RegisterResultPage(driver);
     }
 
-    public RegisterPage registerNewUserWithInvalidData(String firstName, String lastName, String email, String password) {
-        genderMaleRadioButton.click();
+    public RegisterPage registerNewUserWithInvalidData(String gender, String firstName, String lastName, String email, String password) {
+        selectGender(gender);
         firstNameInput.sendKeys(firstName);
         lastNameInput.sendKeys(lastName);
         emailInput.sendKeys(email);
@@ -57,8 +63,22 @@ public class RegisterPage extends BasePage{
         return emailExistsErrorMessage.getText();
     }
 
+    public String getValidationErrorMessageText(int i) {
+        wait.until(ExpectedConditions.visibilityOf(validationErrorMessages.get(0)));
+        return validationErrorMessages.get(i).getText();
+    }
+
     public void clickRegisterButton() {
         registerButton.click();
+    }
+
+
+    public void selectGender(String gender) {
+        if (gender.equalsIgnoreCase("male")) {
+            genderMaleRadioButton.click();
+        } else if (gender.equalsIgnoreCase("female")) {
+            genderFemaleRadioButton.click();
+        }
     }
 
 }

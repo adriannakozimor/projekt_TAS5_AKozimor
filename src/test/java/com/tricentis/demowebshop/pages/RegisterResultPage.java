@@ -7,11 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Getter
-public class RegisterResultPage extends BasePage{
+public class RegisterResultPage extends BasePage {
 
     public RegisterResultPage(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(className = "page-title")
     private WebElement pageTitle;
     @FindBy(className = "result")
@@ -19,12 +20,17 @@ public class RegisterResultPage extends BasePage{
     @FindBy(className = "register-continue-button")
     private WebElement continueButton;
 
+    public String getRegistrationResultMessageText() {
+        wait.until(ExpectedConditions.visibilityOf(registrationResultMessage));
+        return registrationResultMessage.getText();
+    }
+
     public String getPageTitleText() {
         wait.until(ExpectedConditions.visibilityOf(pageTitle));
         return pageTitle.getText();
     }
 
-     public HomePage clickContinueButton() {
+    public HomePage clickContinueButton() {
         continueButton.click();
         return new HomePage(driver);
     }

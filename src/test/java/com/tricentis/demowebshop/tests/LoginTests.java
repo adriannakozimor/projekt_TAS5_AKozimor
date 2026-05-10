@@ -43,6 +43,7 @@ public class LoginTests extends BaseTest {
         LoginPage loginPage = new HomePage(driver)
                 .openLoginPage()
                 .enterEmail("InvalidEmail")
+                .enterPassword(PropertyReader.getProperty("validPassword"))
                 .clickLoginButtonWithInvalidCredentials();
         softAssert.assertEquals(loginPage.getEmailErrorMessage().getText(), "Please enter a valid email address.");
         softAssert.assertAll();
