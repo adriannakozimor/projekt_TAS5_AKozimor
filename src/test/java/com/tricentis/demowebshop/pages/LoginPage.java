@@ -44,9 +44,9 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public HomePage clickLoginButton() {
+    public void clickLoginButton() {
         loginButton.click();
-        return new HomePage(driver);
+        new HomePage(driver);
     }
 
     public String getErrorMessageText() {

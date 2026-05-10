@@ -1,6 +1,5 @@
 package com.tricentis.demowebshop.tests;
 
-import com.tricentis.demowebshop.pages.ComputingAndInternetPage;
 import com.tricentis.demowebshop.pages.HomePage;
 import com.tricentis.demowebshop.pages.LoginPage;
 import com.tricentis.demowebshop.pages.ShoppingCartPage;
@@ -11,7 +10,7 @@ import utils.PropertyReader;
 public class CartTest extends BaseTest{
 
     @Test
-    public void addProductToCartTest() {
+    public void addAndRemoveProductTest() {
         SoftAssert softAssert = new SoftAssert();
         LoginPage loginPage = new HomePage(driver)
                 .openLoginPage()
@@ -25,7 +24,7 @@ public class CartTest extends BaseTest{
                 .clickShoppingCartLink();
         softAssert.assertEquals(shoppingCartPage.getPageTitleText(), "Shopping cart");
         softAssert.assertEquals(shoppingCartPage.getComputingAndInternetLink().getText(), "Computing and Internet");
-        shoppingCartPage.clickRemoveBookFromCart();
+        shoppingCartPage.clickRemoveBookFromCartAndUpdate();
         softAssert.assertEquals(shoppingCartPage.getEmptyCartMessageText(), "Your Shopping Cart is empty!");
     }
 

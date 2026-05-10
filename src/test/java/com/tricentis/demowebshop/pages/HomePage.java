@@ -24,7 +24,7 @@ public class HomePage extends BasePage {
     private WebElement logInLink;
     @FindBy(className = "account")
     private WebElement myAccountLink;
-    @FindBy(css = "a[href*='books']")
+    @FindBy(partialLinkText = "Books")
     private WebElement booksLink;
 
     public RegisterPage openRegisterPage() {
@@ -48,7 +48,7 @@ public class HomePage extends BasePage {
     }
 
     public BooksPage openBooksPage() {
-        wait.until(ExpectedConditions.visibilityOf(booksLink));
+        wait.until(ExpectedConditions.visibilityOf(logOutLink));
         booksLink.click();
         return new BooksPage(driver);
     }

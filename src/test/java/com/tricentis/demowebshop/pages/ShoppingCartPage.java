@@ -1,10 +1,13 @@
 package com.tricentis.demowebshop.pages;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static java.lang.Thread.sleep;
 
 public class ShoppingCartPage extends BasePage {
     public ShoppingCartPage(WebDriver driver) {
@@ -22,14 +25,18 @@ public class ShoppingCartPage extends BasePage {
     private WebElement updateCartButton;
     @FindBy (className = "order-summary-content")
     private WebElement orderSummaryContent;
+    @FindBy (className = "cart-qty")
+    private WebElement cartQuantity;
 
     public String getPageTitleText() {
         wait.until(ExpectedConditions.visibilityOf(pageTitle));
         return pageTitle.getText();
     }
 
-    public void clickRemoveBookFromCart() {
+    @SneakyThrows
+    public void clickRemoveBookFromCartAndUpdate() {
         removeFromCartCheckbox.click();
+        wait.until(ExpectedConditions.elementToBeSelected(removeFromCartCheckbox));
         updateCartButton.click();
     }
 
