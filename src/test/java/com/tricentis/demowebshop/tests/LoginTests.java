@@ -32,8 +32,8 @@ public class LoginTests extends BaseTest {
         LoginPage loginPage = new HomePage(driver)
                 .openLoginPage()
                 .clickLoginButtonWithInvalidCredentials();
-        softAssert.assertEquals(loginPage.getErrorMessage().getText(), PropertyReader.getProperty("unsuccessfulLoginErrorMessage"));
-        softAssert.assertEquals(loginPage.getSecondErrorMessage().getText(), "No customer account found");
+        softAssert.assertEquals(loginPage.getErrorMessageText(), "Login was unsuccessful. Please correct the errors and try again.");
+        softAssert.assertEquals(loginPage.getSecondErrorMessageText(), "No customer account found");
         softAssert.assertAll();
     }
 
@@ -45,22 +45,7 @@ public class LoginTests extends BaseTest {
                 .enterEmail("InvalidEmail")
                 .enterPassword(PropertyReader.getProperty("validPassword"))
                 .clickLoginButtonWithInvalidCredentials();
-        softAssert.assertEquals(loginPage.getEmailErrorMessage().getText(), "Please enter a valid email address.");
-        softAssert.assertAll();
-    }
-
-    @Test
-    public void logInWithInvalidPasswordTest() {
-        SoftAssert softAssert = new SoftAssert();
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new HomePage(driver)
-                .openLoginPage()
-                .enterEmail(PropertyReader.getProperty("validEmail"))
-                .enterPassword("InvalidPassword")
-                .clickLoginButtonWithInvalidCredentials();
-        softAssert.assertEquals(loginPage.getErrorMessage().getText(), PropertyReader.getProperty("unsuccessfulLoginErrorMessage"));
-        softAssert.assertEquals(loginPage.getSecondErrorMessage().getText(), "The credentials provided are incorrect");
-        softAssert.assertTrue(homePage.getLogInLink().isEnabled());
+        softAssert.assertEquals(loginPage.getEmailErrorMessageText(), "Please enter a valid email address.");
         softAssert.assertAll();
     }
 

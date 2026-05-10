@@ -4,8 +4,8 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-@Getter
 public class LoginPage extends BasePage {
 //TODO: zmiana z getterów na String getcośtamtext()
     public LoginPage(WebDriver driver) {
@@ -16,6 +16,7 @@ public class LoginPage extends BasePage {
     private WebElement emailInput;
     @FindBy(id = "Password")
     private WebElement passwordInput;
+    @Getter
     @FindBy(id = "RememberMe")
     private WebElement rememberMeCheckbox;
     @FindBy(className = "login-button")
@@ -46,6 +47,21 @@ public class LoginPage extends BasePage {
     public HomePage clickLoginButton() {
         loginButton.click();
         return new HomePage(driver);
+    }
+
+    public String getErrorMessageText() {
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.getText();
+    }
+
+    public String getSecondErrorMessageText() {
+        wait.until(ExpectedConditions.visibilityOf(secondErrorMessage));
+        return secondErrorMessage.getText();
+    }
+
+    public String getEmailErrorMessageText() {
+        wait.until(ExpectedConditions.visibilityOf(emailErrorMessage));
+        return emailErrorMessage.getText();
     }
 
     public LoginPage clickLoginButtonWithInvalidCredentials() {

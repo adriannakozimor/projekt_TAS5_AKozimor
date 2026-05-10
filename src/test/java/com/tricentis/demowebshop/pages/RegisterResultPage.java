@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-@Getter
 public class RegisterResultPage extends BasePage {
 
     public RegisterResultPage(WebDriver driver) {
@@ -23,11 +22,6 @@ public class RegisterResultPage extends BasePage {
     public String getRegistrationResultMessageText() {
         wait.until(ExpectedConditions.visibilityOf(registrationResultMessage));
         return registrationResultMessage.getText();
-    }
-
-    public String getPageTitleText() {
-        wait.until(ExpectedConditions.visibilityOf(pageTitle));
-        return pageTitle.getText();
     }
 
     public HomePage clickContinueButton() {

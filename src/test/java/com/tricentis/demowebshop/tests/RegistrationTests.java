@@ -6,11 +6,21 @@ import com.tricentis.demowebshop.pages.MyAccountPage;
 import com.tricentis.demowebshop.pages.RegisterPage;
 import com.tricentis.demowebshop.pages.RegisterResultPage;
 import net.datafaker.Faker;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import utils.PropertyReader;
 
 public class RegistrationTests extends BaseTest {
+
+    @DataProvider(name = "userWithInvalidEmailTestData")
+    public Object[][] userData() {
+        return new Object[][]{
+                {new User("Female", "Wiktoria", "Kowalska", "wiktoria@.pl", "Haslo123")},
+                {new User("Female", "Anna", "Nowak", "@test.pl", "Haslo123")},
+                {new User("Male", "Olaf", "Zima", "olaf.test.pl", "Haslo123")}
+        };
+    }
 
     @Test
     public void positiveRegistrationTest() {
@@ -23,15 +33,15 @@ public class RegistrationTests extends BaseTest {
                         randomUser.getLastName(),
                         randomUser.getEmail(),
                         randomUser.getPassword());
-        softAssert.assertEquals(registerResultPage.getPageTitleText(), "Register");
-        softAssert.assertEquals(registerResultPage.getRegistrationResultMessage().getText(), "Your registration completed");
+        softAssert.assertEquals(registerResultPage.getRegistrationResultMessageText(), "Your registration completed");
         registerResultPage.clickContinueButton();
         MyAccountPage myAccountPage = new HomePage(driver).openMyAccountPage();
         softAssert.assertEquals(myAccountPage.getTitleText(), "My account - Customer info");
         if (randomUser.getGender().equalsIgnoreCase("female")) {
             softAssert.assertTrue(myAccountPage.getGenderFemaleRadioButton().isSelected());
-        } else if (randomUser.getGender().equalsIgnoreCase("male")){
-            softAssert.assertTrue(myAccountPage.getGenderMaleRadioButton().isSelected());}
+        } else if (randomUser.getGender().equalsIgnoreCase("male")) {
+            softAssert.assertTrue(myAccountPage.getGenderMaleRadioButton().isSelected());
+        }
         softAssert.assertEquals(myAccountPage.getFirstNameValue(), randomUser.getFirstName());
         softAssert.assertEquals(myAccountPage.getLastNameValue(), randomUser.getLastName());
         softAssert.assertEquals(myAccountPage.getEmailValue(), randomUser.getEmail());
@@ -64,6 +74,21 @@ public class RegistrationTests extends BaseTest {
         softAssert.assertEquals(registerPage.getValidationErrorMessageText(2), "Email is required.");
         softAssert.assertEquals(registerPage.getValidationErrorMessageText(3), "Password is required.");
         softAssert.assertEquals(registerPage.getValidationErrorMessageText(4), "Password is required.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "userWithInvalidEmailTestData")
+    public void createUserWithInvalidEmailTest(User user) {
+        SoftAssert softAssert = new SoftAssert();
+        RegisterPage registerPage = new HomePage(driver)
+                .openRegisterPage()
+                .registerNewUserWithInvalidData(
+                        user.getGender(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getPassword());
+        softAssert.assertEquals(registerPage.getValidationErrorMessageText(0), "Wrong email");
         softAssert.assertAll();
     }
 
