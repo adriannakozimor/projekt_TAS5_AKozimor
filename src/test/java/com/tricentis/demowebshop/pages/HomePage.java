@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage {
 
@@ -23,6 +24,8 @@ public class HomePage extends BasePage {
     private WebElement logInLink;
     @FindBy(className = "account")
     private WebElement myAccountLink;
+    @FindBy(css = "a[href*='books']")
+    private WebElement booksLink;
 
     public RegisterPage openRegisterPage() {
         registerLink.click();
@@ -42,6 +45,12 @@ public class HomePage extends BasePage {
     public MyAccountPage openMyAccountPage() {
         myAccountLink.click();
         return new MyAccountPage(driver);
+    }
+
+    public BooksPage openBooksPage() {
+        wait.until(ExpectedConditions.visibilityOf(booksLink));
+        booksLink.click();
+        return new BooksPage(driver);
     }
 
     public void clickLogOut() {

@@ -35,7 +35,7 @@ public class BaseTest extends Core {
                         PropertyReader.getProperty("validLastName"),
                         PropertyReader.getProperty("validEmail"),
                         PropertyReader.getProperty("validPassword"));
-        sleep(2000);
+        sleep(1000);
         //Weryfikacja, czy użytkownik istnieje, czy został zarejestrowany poprawnie, czy wystąpił inny błąd
         boolean isAdded = tempDriver.findElements(By.cssSelector(".result")).size() > 0;
         boolean isError = tempDriver.findElements(By.cssSelector(".validation-summary-errors")).size() > 0;
