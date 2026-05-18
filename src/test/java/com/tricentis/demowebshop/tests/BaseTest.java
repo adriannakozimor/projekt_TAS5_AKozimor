@@ -4,9 +4,10 @@ import com.tricentis.demowebshop.pages.HomePage;
 import com.tricentis.demowebshop.pages.RegisterPage;
 import com.tricentis.demowebshop.pages.RegisterResultPage;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -14,17 +15,18 @@ import utils.Core;
 import utils.DriverFactory;
 import utils.PropertyReader;
 
-import static java.lang.Thread.sleep;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 public class BaseTest extends Core {
     protected final String BASE_URL = "https://demowebshop.tricentis.com/";
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 
-    @SneakyThrows
     @BeforeSuite
-    public void registerUserOnce() {
-        //TODO: przygotować do raportu
-
+    public void registerUserOnce() throws InterruptedException {
+        Reporter.log("Registrating test user", true);
         WebDriver tempDriver = DriverFactory.createDriver("headless chrome");
         tempDriver.get(BASE_URL);
         RegisterPage registerPage = new HomePage(tempDriver)
@@ -35,16 +37,16 @@ public class BaseTest extends Core {
                         PropertyReader.getProperty("validLastName"),
                         PropertyReader.getProperty("validEmail"),
                         PropertyReader.getProperty("validPassword"));
-        sleep(1000);
+        Thread.sleep(1000);
         //Weryfikacja, czy użytkownik istnieje, czy został zarejestrowany poprawnie, czy wystąpił inny błąd
         boolean isAdded = tempDriver.getCurrentUrl().contains("/registerresult");
         boolean isError = tempDriver.findElements(By.cssSelector(".validation-summary-errors")).size() > 0;
         if (isAdded) {
-            System.out.println("User registered successfully");
+            Reporter.log("User registered successfully", true);
         } else if (isError) {
-            System.out.println("User already exists");
+            Reporter.log("User already exists", true);
         } else {
-            System.out.println("Other error occurred during registration");
+            Reporter.log("Other error occurred during registration", true);
         }
         tempDriver.quit();
     }
@@ -57,7 +59,18 @@ public class BaseTest extends Core {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown() {
+    public void tearDown(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            String timestamp = LocalDateTime.now().format(DATE_FORMAT);
+            String testName = result.getMethod().getMethodName();
+            String screenshotName = result.getMethod().getMethodName() + "_" + timestamp + ".png";
+
+            String screenshotPath = takeErrorScreenshot(screenshotName);
+            String screenshotUri = Path.of(screenshotPath).toUri().toString();
+
+            Reporter.log("Screenshot saved for failed test: " + testName, true);
+            Reporter.log("Open screenshot: " + screenshotUri, true);
+        }
         quitDriver();
     }
 }
