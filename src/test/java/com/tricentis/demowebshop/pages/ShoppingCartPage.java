@@ -1,7 +1,5 @@
 package com.tricentis.demowebshop.pages;
 
-import lombok.Getter;
-import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +12,6 @@ public class ShoppingCartPage extends BasePage {
 
     @FindBy(className = "page-title")
     private WebElement pageTitle;
-    @Getter
     @FindBy(css = "a[href='/computing-and-internet']")
     private WebElement computingAndInternetLink;
     @FindBy(name = "removefromcart")
@@ -29,7 +26,6 @@ public class ShoppingCartPage extends BasePage {
         return pageTitle.getText();
     }
 
-    @SneakyThrows
     public void clickRemoveBookFromCartAndUpdate() {
         removeFromCartCheckbox.click();
         wait.until(ExpectedConditions.elementToBeSelected(removeFromCartCheckbox));
@@ -39,5 +35,10 @@ public class ShoppingCartPage extends BasePage {
     public String getEmptyCartMessageText() {
         wait.until(ExpectedConditions.visibilityOf(orderSummaryContent));
         return orderSummaryContent.getText();
+    }
+
+    public boolean isComputingAndInternetProductVisible() {
+        return wait.until(ExpectedConditions.visibilityOf(computingAndInternetLink))
+                .isDisplayed();
     }
 }

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
-//TODO: zmiana z getterów na String getcośtamtext()
+
     public LoginPage(WebDriver driver) {
         super(driver);
     }

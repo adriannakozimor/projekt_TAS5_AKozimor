@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import utils.PropertyReader;
 
-public class CartTest extends BaseTest{
+public class CartTest extends BaseTest {
 
     @Test
     public void addAndRemoveProductTest() {
@@ -23,9 +23,10 @@ public class CartTest extends BaseTest{
                 .clickAddToCart()
                 .clickShoppingCartLink();
         softAssert.assertEquals(shoppingCartPage.getPageTitleText(), "Shopping cart");
-        softAssert.assertTrue(shoppingCartPage.getComputingAndInternetLink().isDisplayed());
+        softAssert.assertTrue(shoppingCartPage.isComputingAndInternetProductVisible());
         shoppingCartPage.clickRemoveBookFromCartAndUpdate();
         softAssert.assertEquals(shoppingCartPage.getEmptyCartMessageText(), "Your Shopping Cart is empty!");
+        softAssert.assertAll();
     }
 
 }
