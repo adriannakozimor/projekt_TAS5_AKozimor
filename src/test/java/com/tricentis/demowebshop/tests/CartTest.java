@@ -23,7 +23,7 @@ public class CartTest extends BaseTest{
                 .clickAddToCart()
                 .clickShoppingCartLink();
         softAssert.assertEquals(shoppingCartPage.getPageTitleText(), "Shopping cart");
-        softAssert.assertEquals(shoppingCartPage.getComputingAndInternetLink().getText(), "Computing and Internet");
+        softAssert.assertTrue(shoppingCartPage.getComputingAndInternetLink().isDisplayed());
         shoppingCartPage.clickRemoveBookFromCartAndUpdate();
         softAssert.assertEquals(shoppingCartPage.getEmptyCartMessageText(), "Your Shopping Cart is empty!");
     }

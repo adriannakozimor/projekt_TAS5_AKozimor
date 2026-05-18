@@ -25,7 +25,7 @@ public class BaseTest extends Core {
     public void registerUserOnce() {
         //TODO: przygotować do raportu
 
-        WebDriver tempDriver = DriverFactory.createDriver("chrome");
+        WebDriver tempDriver = DriverFactory.createDriver("headless chrome");
         tempDriver.get(BASE_URL);
         RegisterPage registerPage = new HomePage(tempDriver)
                 .openRegisterPage();
@@ -37,7 +37,7 @@ public class BaseTest extends Core {
                         PropertyReader.getProperty("validPassword"));
         sleep(1000);
         //Weryfikacja, czy użytkownik istnieje, czy został zarejestrowany poprawnie, czy wystąpił inny błąd
-        boolean isAdded = tempDriver.findElements(By.cssSelector(".result")).size() > 0;
+        boolean isAdded = tempDriver.getCurrentUrl().contains("/registerresult");
         boolean isError = tempDriver.findElements(By.cssSelector(".validation-summary-errors")).size() > 0;
         if (isAdded) {
             System.out.println("User registered successfully");

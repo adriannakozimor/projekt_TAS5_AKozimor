@@ -13,6 +13,7 @@ public class DriverFactory {
     public static WebDriver createDriver(String browser) {
         return switch (browser.toLowerCase()) {
             case "firefox" -> new FirefoxDriver();
+            case "headless chrome" -> new ChromeDriver(buildHeadlessChromeOptions());
             default -> new ChromeDriver(buildChromeOptions());
         };
     }
@@ -32,6 +33,13 @@ public class DriverFactory {
         options.addArguments("--disable-actor-safety-checks");
         options.setExperimentalOption("useAutomationExtension", true);
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.DISMISS_AND_NOTIFY);
+        return options;
+    }
+
+    private static ChromeOptions buildHeadlessChromeOptions() {
+        ChromeOptions options = buildChromeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--window-size=1920,1080");
         return options;
     }
 }

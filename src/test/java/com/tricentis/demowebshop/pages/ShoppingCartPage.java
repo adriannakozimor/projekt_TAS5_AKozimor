@@ -7,26 +7,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static java.lang.Thread.sleep;
-
 public class ShoppingCartPage extends BasePage {
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy (className = "page-title")
+    @FindBy(className = "page-title")
     private WebElement pageTitle;
     @Getter
-    @FindBy (css = "a[href='/computing-and-internet']")
+    @FindBy(css = "a[href='/computing-and-internet']")
     private WebElement computingAndInternetLink;
-    @FindBy (name = "removefromcart")
+    @FindBy(name = "removefromcart")
     private WebElement removeFromCartCheckbox;
-    @FindBy (name = "updatecart")
+    @FindBy(name = "updatecart")
     private WebElement updateCartButton;
-    @FindBy (className = "order-summary-content")
+    @FindBy(className = "order-summary-content")
     private WebElement orderSummaryContent;
-    @FindBy (className = "cart-qty")
-    private WebElement cartQuantity;
 
     public String getPageTitleText() {
         wait.until(ExpectedConditions.visibilityOf(pageTitle));
