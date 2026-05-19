@@ -5,7 +5,7 @@ import com.tricentis.demowebshop.pages.LoginPage;
 import com.tricentis.demowebshop.pages.ShoppingCartPage;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import utils.PropertyReader;
+import com.tricentis.demowebshop.utils.PropertyReader;
 
 public class CartTest extends BaseTest {
 

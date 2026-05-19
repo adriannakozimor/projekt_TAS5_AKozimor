@@ -1,4 +1,4 @@
-package utils;
+package com.tricentis.demowebshop.utils;
 
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;

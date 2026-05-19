@@ -12,7 +12,7 @@ public class ShoppingCartPage extends BasePage {
 
     @FindBy(className = "page-title")
     private WebElement pageTitle;
-    @FindBy(css = "a[href='/computing-and-internet']")
+    @FindBy(css = "a.product-name[href*='computing-and-internet']")
     private WebElement computingAndInternetLink;
     @FindBy(name = "removefromcart")
     private WebElement removeFromCartCheckbox;
@@ -20,6 +20,8 @@ public class ShoppingCartPage extends BasePage {
     private WebElement updateCartButton;
     @FindBy(className = "order-summary-content")
     private WebElement orderSummaryContent;
+    @FindBy(css = ".bar-notification.success")
+    private WebElement successNotification;
 
     public String getPageTitleText() {
         wait.until(ExpectedConditions.visibilityOf(pageTitle));

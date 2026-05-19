@@ -1,4 +1,4 @@
-package utils;
+package com.tricentis.demowebshop.utils;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -8,6 +8,7 @@ import org.testng.Reporter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class Core {
     protected WebDriver driver;
@@ -25,7 +26,7 @@ public class Core {
     }
 
     protected String takeErrorScreenshot(String fileName) {
-        String screenshotPath = ConfigPath.IMAGE_ERROR_PATH + fileName;
+        String screenshotPath = Path.of(ConfigPath.IMAGE_ERROR_PATH, fileName).toString();
         saveScreenshot(driver, screenshotPath);
         return screenshotPath;
     }

@@ -4,7 +4,7 @@ import com.tricentis.demowebshop.pages.HomePage;
 import com.tricentis.demowebshop.pages.LoginPage;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import utils.PropertyReader;
+import com.tricentis.demowebshop.utils.PropertyReader;
 
 public class LoginTests extends BaseTest {
 

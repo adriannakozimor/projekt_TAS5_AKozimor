@@ -15,7 +15,7 @@ public class HomePage extends BasePage {
     @FindBy(className = "ico-register")
     private WebElement registerLink;
     @FindBy(className = "ico-cart")
-    private WebElement shoppingCardLink;
+    private WebElement shoppingCartLink;
     @Getter
     @FindBy(className = "ico-logout")
     private WebElement logOutLink;
@@ -38,7 +38,7 @@ public class HomePage extends BasePage {
     }
 
     public ShoppingCartPage openShoppingCartPage() {
-        shoppingCardLink.click();
+        shoppingCartLink.click();
         return new ShoppingCartPage(driver);
     }
 

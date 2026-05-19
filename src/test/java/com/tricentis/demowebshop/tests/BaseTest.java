@@ -1,8 +1,6 @@
 package com.tricentis.demowebshop.tests;
 
 import com.tricentis.demowebshop.pages.HomePage;
-import com.tricentis.demowebshop.pages.RegisterPage;
-import com.tricentis.demowebshop.pages.RegisterResultPage;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,9 +9,9 @@ import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import utils.Core;
-import utils.DriverFactory;
-import utils.PropertyReader;
+import com.tricentis.demowebshop.utils.Core;
+import com.tricentis.demowebshop.utils.DriverFactory;
+import com.tricentis.demowebshop.utils.PropertyReader;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -26,12 +24,11 @@ public class BaseTest extends Core {
 
     @BeforeSuite
     public void registerUserOnce() throws InterruptedException {
-        Reporter.log("Registrating test user", true);
+        Reporter.log("Registering test user", true);
         WebDriver tempDriver = DriverFactory.createDriver("headless chrome");
         tempDriver.get(BASE_URL);
-        RegisterPage registerPage = new HomePage(tempDriver)
-                .openRegisterPage();
-        RegisterResultPage registerResultPage = new RegisterPage(tempDriver)
+        new HomePage(tempDriver)
+                .openRegisterPage()
                 .registerNewUser(PropertyReader.getProperty("validGender"),
                         PropertyReader.getProperty("validFirstName"),
                         PropertyReader.getProperty("validLastName"),
