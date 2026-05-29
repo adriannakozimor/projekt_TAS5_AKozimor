@@ -67,6 +67,6 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isRememberMeCheckboxSelected() {
-        return wait.until(ExpectedConditions.visibilityOf(rememberMeCheckbox)).isSelected();
+        return wait.until(ExpectedConditions.elementToBeSelected(rememberMeCheckbox));
     }
 }

@@ -22,6 +22,10 @@ public class ShoppingCartPage extends BasePage {
     private WebElement orderSummaryContent;
     @FindBy(css = ".bar-notification.success")
     private WebElement successNotification;
+    @FindBy(id = "termsofservice")
+    private WebElement termsOfServiceCheckbox;
+    @FindBy(id = "checkout")
+    private WebElement checkoutButton;
 
     public String getPageTitleText() {
         wait.until(ExpectedConditions.visibilityOf(pageTitle));
@@ -43,4 +47,12 @@ public class ShoppingCartPage extends BasePage {
         return wait.until(ExpectedConditions.visibilityOf(computingAndInternetLink))
                 .isDisplayed();
     }
+
+    public CheckoutPage clickTermsOfServiceAndCheckout() {
+        termsOfServiceCheckbox.click();
+        wait.until(ExpectedConditions.elementToBeSelected(termsOfServiceCheckbox));
+        checkoutButton.click();
+        return new CheckoutPage(driver);
+    }
+
 }

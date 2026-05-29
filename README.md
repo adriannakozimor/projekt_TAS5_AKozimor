@@ -31,6 +31,7 @@ Projekt zawiera testy dla:
 - logowania i wylogowania,
 - walidacji formularza logowania,
 - dodawania i usuwania produktu do koszyka
+- przejście procesu zakupowego
 
 ## Wzorzec projektowy
 
