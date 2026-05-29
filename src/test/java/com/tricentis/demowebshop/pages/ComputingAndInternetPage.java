@@ -17,9 +17,13 @@ public class ComputingAndInternetPage extends BasePage {
     @FindBy(xpath = "(//span[@class='cart-label'])[1]")
     private WebElement shoppingCartLink;
 
+    @FindBy(css = ".bar-notification.success")
+    private WebElement successNotification;
+
     public ComputingAndInternetPage clickAddToCart() {
         wait.until(ExpectedConditions.visibilityOf(addToCartButton));
         addToCartButton.click();
+        wait.until(ExpectedConditions.visibilityOf(successNotification));
         return this;
     }
 

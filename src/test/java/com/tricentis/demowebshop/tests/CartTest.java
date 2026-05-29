@@ -3,6 +3,7 @@ package com.tricentis.demowebshop.tests;
 import com.tricentis.demowebshop.pages.HomePage;
 import com.tricentis.demowebshop.pages.LoginPage;
 import com.tricentis.demowebshop.pages.ShoppingCartPage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.tricentis.demowebshop.utils.PropertyReader;
@@ -22,7 +23,7 @@ public class CartTest extends BaseTest {
                 .openComputingAndInternetPage()
                 .clickAddToCart()
                 .clickShoppingCartLink();
-        softAssert.assertEquals(shoppingCartPage.getPageTitleText(), "Shopping cart");
+        Assert.assertEquals(shoppingCartPage.getPageTitleText(), "Shopping cart");
         softAssert.assertTrue(shoppingCartPage.isComputingAndInternetProductVisible());
         shoppingCartPage.clickRemoveBookFromCartAndUpdate();
         softAssert.assertEquals(shoppingCartPage.getEmptyCartMessageText(), "Your Shopping Cart is empty!");

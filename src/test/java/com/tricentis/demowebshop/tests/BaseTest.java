@@ -1,7 +1,9 @@
 package com.tricentis.demowebshop.tests;
 
 import com.tricentis.demowebshop.pages.HomePage;
-import lombok.Getter;
+import com.tricentis.demowebshop.utils.Core;
+import com.tricentis.demowebshop.utils.DriverFactory;
+import com.tricentis.demowebshop.utils.PropertyReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
@@ -9,21 +11,17 @@ import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import com.tricentis.demowebshop.utils.Core;
-import com.tricentis.demowebshop.utils.DriverFactory;
-import com.tricentis.demowebshop.utils.PropertyReader;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Getter
 public class BaseTest extends Core {
     protected final String BASE_URL = "https://demowebshop.tricentis.com/";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 
     @BeforeSuite
-    public void registerUserOnce() throws InterruptedException {
+    public void registerUserOnce() {
         Reporter.log("Registering test user", true);
         WebDriver tempDriver = DriverFactory.createDriver("headless chrome");
         tempDriver.get(BASE_URL);
@@ -34,7 +32,6 @@ public class BaseTest extends Core {
                         PropertyReader.getProperty("validLastName"),
                         PropertyReader.getProperty("validEmail"),
                         PropertyReader.getProperty("validPassword"));
-        Thread.sleep(1000);
         //Weryfikacja, czy użytkownik istnieje, czy został zarejestrowany poprawnie, czy wystąpił inny błąd
         boolean isAdded = tempDriver.getCurrentUrl().contains("/registerresult");
         boolean isError = tempDriver.findElements(By.cssSelector(".validation-summary-errors")).size() > 0;
