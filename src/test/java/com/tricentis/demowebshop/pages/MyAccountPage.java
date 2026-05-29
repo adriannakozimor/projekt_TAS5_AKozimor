@@ -1,6 +1,5 @@
 package com.tricentis.demowebshop.pages;
 
-import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,10 +13,8 @@ public class MyAccountPage extends BasePage {
 
     @FindBy(className = "page-title")
     private WebElement pageTitle;
-    @Getter
     @FindBy(id = "gender-female")
     private WebElement genderFemaleRadioButton;
-    @Getter
     @FindBy(id = "gender-male")
     private WebElement genderMaleRadioButton;
     @FindBy(id = "FirstName")
@@ -42,6 +39,14 @@ public class MyAccountPage extends BasePage {
 
     public String getEmailValue() {
         return emailInput.getAttribute("value");
+    }
+
+    public boolean isFemaleGenderSelected() {
+        return genderFemaleRadioButton.isSelected();
+    }
+
+    public boolean isMaleGenderSelected() {
+        return genderMaleRadioButton.isSelected();
     }
 }
 

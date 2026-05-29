@@ -2,6 +2,7 @@ package com.tricentis.demowebshop.tests;
 
 import com.tricentis.demowebshop.pages.HomePage;
 import com.tricentis.demowebshop.pages.LoginPage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.tricentis.demowebshop.utils.PropertyReader;
@@ -18,11 +19,11 @@ public class LoginTests extends BaseTest {
                 .enterEmail(PropertyReader.getProperty("validEmail"))
                 .enterPassword(PropertyReader.getProperty("validPassword"))
                 .clickRememberMeCheckbox();
-        softAssert.assertTrue(loginPage.getRememberMeCheckbox().isSelected());
+        softAssert.assertTrue(loginPage.isRememberMeCheckboxSelected());
         loginPage.clickLoginButton();
-        softAssert.assertTrue(homePage.getLogOutLink().isDisplayed());
+        Assert.assertTrue(homePage.isUserLoggedIn());
         homePage.clickLogOut();
-        softAssert.assertTrue(homePage.getLogInLink().isDisplayed());
+        softAssert.assertTrue(homePage.isUserLoggedOut());
         softAssert.assertAll();
     }
 

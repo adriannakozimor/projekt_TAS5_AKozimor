@@ -1,6 +1,5 @@
 package com.tricentis.demowebshop.pages;
 
-import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,10 +15,8 @@ public class HomePage extends BasePage {
     private WebElement registerLink;
     @FindBy(className = "ico-cart")
     private WebElement shoppingCartLink;
-    @Getter
     @FindBy(className = "ico-logout")
     private WebElement logOutLink;
-    @Getter
     @FindBy(className = "ico-login")
     private WebElement logInLink;
     @FindBy(className = "account")
@@ -51,6 +48,14 @@ public class HomePage extends BasePage {
         wait.until(ExpectedConditions.visibilityOf(logOutLink));
         booksLink.click();
         return new BooksPage(driver);
+    }
+
+    public boolean isUserLoggedIn() {
+        return wait.until(ExpectedConditions.visibilityOf(logOutLink)).isDisplayed();
+    }
+
+    public boolean isUserLoggedOut() {
+        return wait.until(ExpectedConditions.visibilityOf(logInLink)).isDisplayed();
     }
 
     public void clickLogOut() {

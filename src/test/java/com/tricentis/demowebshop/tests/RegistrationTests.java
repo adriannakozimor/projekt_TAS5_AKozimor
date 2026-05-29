@@ -38,9 +38,9 @@ public class RegistrationTests extends BaseTest {
         MyAccountPage myAccountPage = new HomePage(driver).openMyAccountPage();
         softAssert.assertEquals(myAccountPage.getTitleText(), "My account - Customer info");
         if (randomUser.getGender().equalsIgnoreCase("female")) {
-            softAssert.assertTrue(myAccountPage.getGenderFemaleRadioButton().isSelected());
+            softAssert.assertTrue(myAccountPage.isFemaleGenderSelected());
         } else if (randomUser.getGender().equalsIgnoreCase("male")) {
-            softAssert.assertTrue(myAccountPage.getGenderMaleRadioButton().isSelected());
+            softAssert.assertTrue(myAccountPage.isMaleGenderSelected());
         }
         softAssert.assertEquals(myAccountPage.getFirstNameValue(), randomUser.getFirstName());
         softAssert.assertEquals(myAccountPage.getLastNameValue(), randomUser.getLastName());

@@ -1,6 +1,5 @@
 package com.tricentis.demowebshop.pages;
 
-import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +15,6 @@ public class LoginPage extends BasePage {
     private WebElement emailInput;
     @FindBy(id = "Password")
     private WebElement passwordInput;
-    @Getter
     @FindBy(id = "RememberMe")
     private WebElement rememberMeCheckbox;
     @FindBy(className = "login-button")
@@ -66,5 +64,9 @@ public class LoginPage extends BasePage {
     public LoginPage clickLoginButtonWithInvalidCredentials() {
         loginButton.click();
         return this;
+    }
+
+    public boolean isRememberMeCheckboxSelected() {
+        return wait.until(ExpectedConditions.visibilityOf(rememberMeCheckbox)).isSelected();
     }
 }
