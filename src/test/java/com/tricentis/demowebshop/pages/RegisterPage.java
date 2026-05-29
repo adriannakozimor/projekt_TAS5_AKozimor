@@ -1,6 +1,5 @@
 package com.tricentis.demowebshop.pages;
 
-import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,7 +29,6 @@ public class RegisterPage extends BasePage {
     private WebElement confirmPasswordInput;
     @FindBy(id = "register-button")
     private WebElement registerButton;
-    @Getter
     @FindBy(className = "validation-summary-errors")
     private WebElement emailExistsErrorMessage;
     @FindBy(className = "field-validation-error")
