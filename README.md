@@ -15,4 +15,24 @@ przygotowany w ramach studiów podyplomowych "Tester automatyzujący w Selenium"
 Aby uruchomić testy, użyj komendy:
 
 ```bash
-mvn clean test
+mvn clean test 
+```
+
+## Raporty
+Po uruchomieniu testów, raporty zostaną wygenerowane w katalogu `target/surefire-reports`. Aby zobaczyć szczegółowy raport z wynikami testów należy otworzyć plik `index.html` znajdujący się w tym katalogu.
+W przypadku pojawienia się błędów, screenshoty są zapisywane w katalogu `target/screenshots` z nazwą i datą odpowiadającą testowi, który nie przeszedł.
+
+## Zakres testów
+
+Projekt zawiera testy dla:
+
+- rejestracji użytkownika,
+- walidacji formularza rejestracji,
+- logowania i wylogowania,
+- walidacji formularza logowania,
+- dodawania i usuwania produktu do koszyka
+
+## Wzorzec projektowy
+
+Projekt wykorzystuje Page Object Model.
+Logika obsługi stron znajduje się w pakiecie pages, a scenariusze testowe w pakiecie tests.
