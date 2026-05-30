@@ -35,5 +35,5 @@ Projekt zawiera testy dla:
 
 ## Wzorzec projektowy
 
-Projekt wykorzystuje Page Object Model.
+Projekt wykorzystuje Page Object Model oraz DDT (Data-Driven Testing).
 Logika obsługi stron znajduje się w pakiecie pages, a scenariusze testowe w pakiecie tests.
